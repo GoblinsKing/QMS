@@ -1,0 +1,4 @@
+-r requirements/prod.txt
+gunicorn==18.0
+Flask==1.0
+Flask-Login==0.4.1
