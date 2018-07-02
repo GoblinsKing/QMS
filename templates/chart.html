@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+    <script>
+    zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+    ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3edaf6d"];
+    </script>
+    <style>
+        html,
+        body,
+        #myChart {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id='myChart'></div>
+    <script>
+    var myConfig = {
+        type: 'radar',
+        //plot: {aspect: 'area'},
+        "scale-k": {"labels": ["Q1", "Q2", "Q3"]},
+        series: [{ "values": [{{Q1}},{{Q2}},{{Q3}}] }]
+    };
+
+    zingchart.render({
+      id: 'myChart',
+      data: myConfig,
+      height: '100%',
+      width: '100%'
+    });
+    </script>
+</body>
+</html>

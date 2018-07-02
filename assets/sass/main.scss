@@ -1,0 +1,32 @@
+@import url( 'https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700');
+@import "reset";
+@import "variables";
+* {
+    box-sizing:border-box;
+}
+body {
+    font-family: 'Roboto', sans-serif;
+    background: $grayLight;
+}
+
+#sideMenu {
+    background: $purpleLight;
+    max-width: 280px;
+
+    nav {
+        padding-top: 100px;
+
+        a {
+            display: block;
+            color: $grayDark;
+            text-decoration: none;
+            padding: 15px 30px;
+
+            &.active {
+                background: $purpleDard;
+                border-right: 5px solid $greenNeon;
+                padding:15px 30px 15px 25px;
+            }
+        }
+    }
+}
