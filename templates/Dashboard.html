@@ -12,26 +12,40 @@
 
     <section id="sideMenu">
         <div id="title">
-            Sample System
+            质量管理内审评估
         </div>
         <nav>
-            <a href="#" class="active"><i class="fas fa-home"></i>Item</a>
-            <a href="#"><i class="fas fa-home"></i>Item</a>
+            <a href="#" class="active"><i class="fas fa-home"></i>评估</a>
+            <a href="{{url_for('reset_audit')}}"><i class="fas fa-home"></i>重置评估</a>
             <a href="#"><i class="fas fa-home"></i>Item</a>
             <a href="#"><i class="fas fa-home"></i>Item</a>
             <a href="#"><i class="fas fa-home"></i>Item</a>
             <a href="#"><i class="fas fa-home"></i>Item</a>
         </nav>
-        <a href="/logout">&nbsp;Logout&nbsp;</a>
+        <a href="/logout">&nbsp;登出&nbsp;</a>
     </section>
-    <div class="main">
+    <div class="main">      
         {% if n > 6 %}
-        That is all.<br>
-        Summary(mean):<br>
-        Q1:{{result[0]/3}}<br>
-        Q2:{{result[1]/2}}<br>
-        Q3:{{result[2]/1}}<br>
-        <a class="result" href={{url_for('chart')}} >Click here to show the radar graph</a>
+        <table class="question">
+            <tr>
+                <td>评估完成</td>
+            </tr>
+            <tr>
+                <td>总结(均分):</td>
+            </tr>
+            <tr>
+                <td>Q1:{{result[0]/3}}</td>
+            </tr>
+            <tr>
+                <td>Q2:{{result[1]/2}}</td>
+            </tr>
+            <tr>
+                <td>Q3:{{result[2]/1}}</td>
+            </tr>
+            <tr>
+                <td><a class="result" href={{url_for('chart')}}>点击查看雷达图</a></td>
+            </tr>
+        </table>
            {% else %}
         <form method="post">
             <table class="question">

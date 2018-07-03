@@ -89,3 +89,14 @@ def logout():
 @login_required
 def chart():
     return render_template('chart.html',Q1 = result[0]/3,Q2 = result[1]/2,Q3 = result[2]/1)
+
+@app.route('/reset_audit')
+def reset_audit():
+    global n
+    global result
+    global CurrQues
+    n = 0
+    result = [0,0,0]
+    CurrQues = 1
+    QuesNum = [3,2,1]
+    return redirect(url_for('dashboard'))

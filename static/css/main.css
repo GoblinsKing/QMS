@@ -81,3 +81,8 @@ i {
     border-collapse: separate;
     border-spacing: 0px 20px;
 }
+
+.audit {
+    margin-top: 20px;
+    margin-left: 40px;
+}
