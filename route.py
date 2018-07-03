@@ -12,7 +12,7 @@ from question import *
 #isoi = ISOI()
 
 
-n = 0
+n = 1
 result = [0,0,0]
 CurrQues = 1
 QuesNum = [3,2,1]
@@ -64,9 +64,10 @@ def dashboard():
     #question2=["Q2.1","Q2.2"]
     #question3=["Q3.1"]
     question = ["Q1.1 xxx","Q1.2 xxx","Q1.3 xxx","Q2.1 xxx","Q2.2 xxx","Q3.1 xxx"]
-    n = n + 1
+    
     answer = None
     if request.method== 'POST':
+        n = n + 1
         form = request.form
         answer=str(form['result'])
     if n == 1:
