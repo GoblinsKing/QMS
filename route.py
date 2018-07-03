@@ -96,7 +96,7 @@ def reset_audit():
     global n
     global result
     global CurrQues
-    n = 0
+    n = 1
     result = [0,0,0]
     CurrQues = 1
     QuesNum = [3,2,1]
