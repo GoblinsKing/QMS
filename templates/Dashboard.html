@@ -50,7 +50,7 @@
         <form method="post">
             <table class="question">
                 <tr>
-                    <td>{{question[n-1]}}</td>
+                    <td>{{question}}</td>
                 </tr>
                 <tr>
                     <td>N: {{n}}</td>
@@ -59,7 +59,7 @@
             <table class="question">
                 <tr>
                     <td>
-                        <input type="radio" name="result" value="Excellent" />
+                        <input type="radio" name="result" value="Excellent" required/>
                     </td>
                     <td>
                         Excellent
@@ -67,7 +67,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <input type="radio" name="result" value="Good" />
+                        <input type="radio" name="result" value="Good" required/>
                     </td>
                     <td>
                         Good
@@ -75,7 +75,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <input type="radio" name="result" value="Fair" />
+                        <input type="radio" name="result" value="Fair" required/>
                     </td>
                     <td>
                         Fair
@@ -83,7 +83,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <input type="radio" name="result" value="Poor" />
+                        <input type="radio" name="result" value="Poor" required/>
                     </td>
                     <td>
                         Poor
@@ -91,7 +91,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <input type="radio" name="result" value="Terrible" />
+                        <input type="radio" name="result" value="Terrible" required/>
                     </td>
                     <td>
                         Terrible

@@ -1,21 +1,29 @@
+from init_db import db,create_db
+create_db()
 from server import app, login_manager
 from flask import request, render_template,session,redirect,url_for,flash
 from flask_login import LoginManager,UserMixin,login_required,login_user,current_user,logout_user
 from user import User
 from question import *
-#from isoi import *
 #from datetime import datetime,timedelta
-
-#app.config['SECRET_KEY']='GoblinsKing'
-#login_manager = LoginManager()
-#login_manager.init_app(app)
-#isoi = ISOI()
-
 
 n = 1
 result = [0,0,0]
-CurrQues = 1
-QuesNum = [3,2,1]
+
+
+part_num = 1
+ques_num = 1
+num = [3,2,1]
+def next_ques():
+    global part_num
+    global ques_num
+    if part_num == 3:
+        return
+    if ques_num == num[part_num-1]:
+        ques_num = 1
+        part_num += 1
+    else:
+        ques_num += 1
 
 def check_password(username, password):
     if username == 'admin' and password == 'admin':
@@ -58,28 +66,28 @@ def login():
 def dashboard():
     global n
     global result
-    global CurrQues
-    
-    #question1=["Q1.1","Q1.2","Q1.3"]
-    #question2=["Q2.1","Q2.2"]
-    #question3=["Q3.1"]
-    question = ["Q1.1 xxx","Q1.2 xxx","Q1.3 xxx","Q2.1 xxx","Q2.2 xxx","Q3.1 xxx"]
+
+    #开始后再刷新会导致重新提交表单,导致前进
     
     answer = None
-    if request.method== 'POST':
+    if request.method == 'POST':
         n = n + 1
         form = request.form
         answer=str(form['result'])
-    if n == 1:
-        answer = None
+        next_ques()
+    #if n == 1:
+    #    answer = None
     answer = get_answer(answer)
     if n <= 4:
-        result[CurrQues-1] = result[CurrQues-1] + answer
+        result[0] = result[0] + answer
     elif n <= 6:
         result[1] = result[1] + answer
     elif n <= 7:
         result[2] = result[2] + answer
-    return render_template('Dashboard.html',user=current_user,question=question,n=n,answer=answer,result=result)
+
+    temp = questions.query.filter_by(part_num=part_num, ques_num=ques_num).first()
+    
+    return render_template('Dashboard.html',user=current_user, question=temp.question, n=n, answer=answer, result=result)
 
 @app.route('/logout')
 def logout():
@@ -95,9 +103,10 @@ def chart():
 def reset_audit():
     global n
     global result
-    global CurrQues
+    global part_num
+    global ques_num
     n = 1
     result = [0,0,0]
-    CurrQues = 1
-    QuesNum = [3,2,1]
+    part_num = 1
+    ques_num = 1
     return redirect(url_for('dashboard'))
