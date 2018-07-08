@@ -78,12 +78,12 @@ def dashboard():
     #if n == 1:
     #    answer = None
     answer = get_answer(answer)
-    if n <= 4:
-        result[0] = result[0] + answer
-    elif n <= 6:
-        result[1] = result[1] + answer
-    elif n <= 7:
-        result[2] = result[2] + answer
+    #if n <= 4:
+    #    result[0] = result[0] + answer
+    #elif n <= 6:
+    #    result[1] = result[1] + answer
+    #elif n <= 7:
+    #    result[2] = result[2] + answer
 
     temp = questions.query.filter_by(part_num=part_num, ques_num=ques_num).first()
     
