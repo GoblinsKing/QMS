@@ -6,6 +6,7 @@ app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN']=True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=True
 db = SQLAlchemy(app)
 from question import load_ques
+from audit import *
 #from all_user import *
 #from LoadUserFromCSV import *
 def create_db():

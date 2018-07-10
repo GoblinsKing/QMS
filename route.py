@@ -5,11 +5,10 @@ from flask import request, render_template,session,redirect,url_for,flash
 from flask_login import LoginManager,UserMixin,login_required,login_user,current_user,logout_user
 from user import User
 from question import *
+from audit import *
 #from datetime import datetime,timedelta
 
 n = 1
-result = [0,0,0]
-
 
 part_num = 1
 ques_num = 1
@@ -74,20 +73,14 @@ def dashboard():
         n = n + 1
         form = request.form
         answer=str(form['result'])
+        answer = get_answer(answer)
+        save_answer(n, part_num, ques_num, answer)
         next_ques()
-    #if n == 1:
-    #    answer = None
-    answer = get_answer(answer)
-    #if n <= 4:
-    #    result[0] = result[0] + answer
-    #elif n <= 6:
-    #    result[1] = result[1] + answer
-    #elif n <= 7:
-    #    result[2] = result[2] + answer
 
     temp = questions.query.filter_by(part_num=part_num, ques_num=ques_num).first()
+    answer = show_answer(2,2)
     
-    return render_template('Dashboard.html',user=current_user, question=temp.question, n=n, answer=answer, result=result)
+    return render_template('Dashboard.html',user=current_user, question=temp.question, n=n, answer=answer)
 
 @app.route('/logout')
 def logout():
@@ -97,16 +90,15 @@ def logout():
 @app.route('/chart',methods=['POST','GET'])
 @login_required
 def chart():
-    return render_template('chart.html',Q1 = result[0]/3,Q2 = result[1]/2,Q3 = result[2]/1)
+    return render_template('chart.html',Q1 = 5, Q2 = 5, Q3 = 5)
 
 @app.route('/reset_audit')
 def reset_audit():
+    audit.query.delete()
     global n
-    global result
     global part_num
     global ques_num
     n = 1
-    result = [0,0,0]
     part_num = 1
     ques_num = 1
     return redirect(url_for('dashboard'))
