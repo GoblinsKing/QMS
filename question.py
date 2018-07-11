@@ -50,3 +50,10 @@ def load_ques():
     #            Trainee = trainee(name=row[0],zid=row[1],id=row[2],password=row[3])
     #           db.session.add(Trainee)
     #    db.session.commit()
+
+def get_question(part_num, ques_num):
+    temp = questions.query.filter_by(part_num=part_num, ques_num=ques_num).first()
+    if temp is None:
+        return None
+    else:
+        return temp.question

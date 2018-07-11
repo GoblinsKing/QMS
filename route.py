@@ -1,4 +1,4 @@
-from init_db import db,create_db
+锘縡rom init_db import db,create_db
 create_db()
 from server import app, login_manager
 from flask import request, render_template,session,redirect,url_for,flash
@@ -66,7 +66,7 @@ def dashboard():
     global n
     global result
 
-    #开始后再刷新会导致重新提交表单,导致前进
+    #寮�濮嬪悗鍐嶅埛鏂颁細瀵艰嚧閲嶆柊鎻愪氦琛ㄥ崟,瀵艰嚧鍓嶈繘
     
     answer = None
     if request.method == 'POST':
@@ -74,13 +74,12 @@ def dashboard():
         form = request.form
         answer=str(form['result'])
         answer = get_answer(answer)
-        save_answer(n, part_num, ques_num, answer)
+        comment = str(form['comment'])
+        save_answer(n, part_num, ques_num, answer, comment)
         next_ques()
-
-    temp = questions.query.filter_by(part_num=part_num, ques_num=ques_num).first()
-    answer = show_answer(2,2)
-    
-    return render_template('Dashboard.html',user=current_user, question=temp.question, n=n, answer=answer)
+    question = get_question(part_num, ques_num)
+    all_answers = all_answer()
+    return render_template('Dashboard.html',user=current_user, question=question, n = n, part_num = part_num, ques_num = ques_num, all_answer = all_answers)
 
 @app.route('/logout')
 def logout():
@@ -90,7 +89,17 @@ def logout():
 @app.route('/chart',methods=['POST','GET'])
 @login_required
 def chart():
-    return render_template('chart.html',Q1 = 5, Q2 = 5, Q3 = 5)
+    part_num = 1
+    ques_num = 1
+    result = [0,0,0]
+    while part_num <= len(num):
+        ques_num = 1;
+        while ques_num <= num[part_num-1]:
+            result[part_num-1] += show_answer(part_num, ques_num)
+            ques_num += 1
+        part_num += 1
+
+    return render_template('chart.html',Q1 = result[0]/3, Q2 = result[1]/2, Q3 = result[2]/1)
 
 @app.route('/reset_audit')
 def reset_audit():

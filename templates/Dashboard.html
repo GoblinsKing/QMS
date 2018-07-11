@@ -31,17 +31,24 @@
                 <td>评估完成</td>
             </tr>
             <tr>
-                <td>总结(均分):</td>
+                <td>总结:</td>
             </tr>
+
+            {% for answer in all_answer %}
+                <tr>
+                    <td>{{answer.part_num}}.{{answer.ques_num}}: {{answer.question}}</td>
+                </tr>
+                <tr>
+                    <td>结果: {{answer.answer}}</td>
+                </tr>
+                <tr>
+                    <td>评论: {{answer.comment}}</td>
+                </tr>
             <tr>
-                <td>Q1:{{answer}}</td>
+                <td>---------------------------</td>
             </tr>
-            <tr>
-                <td>Q2:{{answer}}</td>
-            </tr>
-            <tr>
-                <td>Q3:{{answer}}</td>
-            </tr>
+            {% endfor %}
+
             <tr>
                 <td><a class="result" href={{url_for('chart')}}>点击查看雷达图</a></td>
             </tr>
@@ -50,13 +57,7 @@
         <form method="post">
             <table class="question">
                 <tr>
-                    <td>{{question}}</td>
-                </tr>
-                <tr>
-                    <td>N: {{n}}</td>
-                </tr>
-                <tr>
-                    <td>A: {{answer}}</td>
+                    <td>{{part_num}}.{{ques_num}}: {{question}}</td>
                 </tr>
             </table>
             <table class="question">
@@ -101,12 +102,18 @@
                     </td>
                 </tr>
                 <tr>
+                    <td colspan="2">评估结论</td>
+                </tr>
+                <tr>
+                    <td colspan="2"><textarea name="comment"></textarea></td>
+                </tr>
+                <tr>
                     <td><input type="submit" name="Next" value="Next"></td>
                 </tr>
             </table>
         </form>
 
         {% endif %}
-</div>
+    </div>
 </body>
 </html>

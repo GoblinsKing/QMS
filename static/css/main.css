@@ -80,6 +80,7 @@ i {
     margin-left: 40px;
     border-collapse: separate;
     border-spacing: 0px 20px;
+    /*border: 2px solid grey;*/
 }
 
 .audit {
