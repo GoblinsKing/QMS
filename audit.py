@@ -6,12 +6,13 @@ class audit(db.Model):
     ques_num = db.Column('ques_num',db.Integer)
     answer = db.Column('answer',db.Integer)
     comment = db.Column('comment',db.String)
+    suggestion = db.Column('suggestion',db.String)
     __mapper_args__={
         'polymorphic_identity':'audit',
     } 
     
-def save_answer(n, part_num, ques_num, answer, comment):
-    new = audit(id = n, part_num = part_num, ques_num = ques_num, answer = answer, comment = comment)
+def save_answer(n, part_num, ques_num, answer, comment, suggestion):
+    new = audit(id = n, part_num = part_num, ques_num = ques_num, answer = answer, comment = comment, suggestion = suggestion)
     db.session.add(new)
     db.session.commit()
 

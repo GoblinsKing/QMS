@@ -1,0 +1,100 @@
+﻿<div class="main">
+    {% if n > 6 %}
+    <table class="question">
+        <tr>
+            <td>评估完成</td>
+        </tr>
+        <tr>
+            <td>总结:</td>
+        </tr>
+
+        {% for answer in all_answer %}
+        <tr>
+            <td>{{answer.part_num}}.{{answer.ques_num}}: {{answer.question}}</td>
+        </tr>
+        <tr>
+            <td>结果: {{answer.answer}}</td>
+        </tr>
+        <tr>
+            <td>评论: {{answer.comment}}</td>
+        </tr>
+        <tr>
+            <td>改进建议: {{answer.suggestion}}</td>
+        </tr>
+        <tr>
+            <td>---------------------------</td>
+        </tr>
+        {% endfor %}
+
+        <tr>
+            <td><a class="result" href={{url_for('chart')}}>点击查看雷达图</a></td>
+        </tr>
+    </table>
+    {% else %}
+    <form method="post">
+        <table class="question">
+            <tr>
+                <td>{{part_num}}.{{ques_num}}: {{question}}</td>
+            </tr>
+        </table>
+        <table class="question">
+            <tr>
+                <td>
+                    <input type="radio" name="result" value="Excellent" required />
+                </td>
+                <td>
+                    Excellent
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" name="result" value="Good" required />
+                </td>
+                <td>
+                    Good
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" name="result" value="Fair" required />
+                </td>
+                <td>
+                    Fair
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" name="result" value="Poor" required />
+                </td>
+                <td>
+                    Poor
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" name="result" value="Terrible" required />
+                </td>
+                <td>
+                    Terrible
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">评估结论</td>
+            </tr>
+            <tr>
+                <td colspan="2"><textarea name="comment"></textarea></td>
+            </tr>
+            <tr>
+                <td colspan="2">改进建议</td>
+            </tr>
+            <tr>
+                <td colspan="2"><textarea name="suggestion"></textarea></td>
+            </tr>
+            <tr>
+                <td><input type="submit" name="Next" value="Next"></td>
+            </tr>
+        </table>
+    </form>
+
+    {% endif %}
+</div>
