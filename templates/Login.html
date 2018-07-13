@@ -15,13 +15,15 @@
         <input type="submit" name="login" class="login login-submit" value="登录">
     </form>
     <div>
-        {% block content %}
-        {% for message in get_flashed_messages()%}
-        {{message}}
-        {% endfor %}
-        {% block page_content %}
-        {% endblock %}
-        {% endblock %}
+        <center>
+            {% block content %}
+            {% for message in get_flashed_messages()%}
+            {{message}}
+            {% endfor %}
+            {% block page_content %}
+            {% endblock %}
+            {% endblock %}
+        </center>
     </div>
     <div class="login-help">
         联系xxxx@outlook.com获取更多帮助<br>

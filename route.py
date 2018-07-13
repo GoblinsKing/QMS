@@ -24,19 +24,6 @@ def next_ques():
     else:
         ques_num += 1
 
-def check_password(username, password):
-    if username == 'admin' and password == 'admin':
-        curr_user = user(username)
-        login_user(curr_user)
-        return True
-    return False
-
-def get_user(id):
-    valid_user=user.query.filter_by(id=id).first()
-    if valid_user is not None:
-        return valid_user
-    return None
-
 @login_manager.user_loader
 def load_user(user_id):
     # get user information from db
@@ -51,7 +38,7 @@ def login():
         if check_password(username, password):
             return redirect(url_for('dashboard'))
         else:
-            flash("Invalid username or password",'alart')
+            flash("用户名或密码错误",'alart')
             return redirect(url_for('login'))
 
     if current_user.is_authenticated:
