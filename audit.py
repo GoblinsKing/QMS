@@ -26,3 +26,7 @@ def show_answer(part_num, ques_num):
 def all_answer():
     temp = audit.query.all()
     return temp
+
+def reset_answer():
+    audit.query.delete()
+    return

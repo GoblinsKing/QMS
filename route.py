@@ -43,7 +43,7 @@ def load_user(user_id):
     user = get_user(user_id)
     return user
 
-@app.route('/', methods=['POST', 'GET'])
+@app.route('/', methods=['POST','GET'])
 def login():
     if request.method== 'POST':
         form = request.form
@@ -63,24 +63,7 @@ def login():
 @app.route('/dashboard',methods=['POST','GET'])
 @login_required
 def dashboard():
-    global n
-    global result
-
-    #开始后再刷新会导致重新提交表单,导致前进
-    
-    answer = None
-    if request.method == 'POST':
-        n = n + 1
-        form = request.form
-        answer=str(form['result'])
-        answer = get_answer(answer)
-        comment = str(form['comment'])
-        suggestion = str(form['comment'])
-        save_answer(n, part_num, ques_num, answer, comment, suggestion)
-        next_ques()
-    question = get_question(part_num, ques_num)
-    all_answers = all_answer()
-    return render_template('Dashboard.html',user=current_user, question=question, n = n, part_num = part_num, ques_num = ques_num, all_answer = all_answers)
+    return render_template('Dashboard.html',user=current_user)
 
 @app.route('/logout')
 def logout():
@@ -104,7 +87,7 @@ def chart():
 
 @app.route('/reset_audit')
 def reset_audit():
-    audit.query.delete()
+    reset_answer()
     global n
     global part_num
     global ques_num
@@ -112,3 +95,35 @@ def reset_audit():
     part_num = 1
     ques_num = 1
     return redirect(url_for('dashboard'))
+
+@app.route('/new_audit',methods=['POST','GET'])
+@login_required
+def new_audit():
+    if request.method == 'POST':
+        form = request.form
+        choice=str(form['choice'])
+        if choice == "1":
+            return redirect(url_for('audit'))
+    return render_template('new_audit.html')
+
+@app.route('/audit',methods=['POST','GET'])
+@login_required
+def audit():
+    global n
+    global result
+
+    #开始后再刷新会导致重新提交表单,导致前进
+    
+    answer = None
+    if request.method == 'POST':
+        n = n + 1
+        form = request.form
+        answer=str(form['result'])
+        answer = get_answer(answer)
+        comment = str(form['comment'])
+        suggestion = str(form['comment'])
+        save_answer(n, part_num, ques_num, answer, comment, suggestion)
+        next_ques()
+    question = get_question(part_num, ques_num)
+    all_answers = all_answer()
+    return render_template('audit.html',user=current_user, question=question, n = n, part_num = part_num, ques_num = ques_num, all_answer = all_answers)
