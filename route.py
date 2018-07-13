@@ -3,7 +3,7 @@ create_db()
 from server import app, login_manager
 from flask import request, render_template,session,redirect,url_for,flash
 from flask_login import LoginManager,UserMixin,login_required,login_user,current_user,logout_user
-from user import User
+from user import *
 from question import *
 from audit import *
 #from datetime import datetime,timedelta
@@ -26,22 +26,21 @@ def next_ques():
 
 def check_password(username, password):
     if username == 'admin' and password == 'admin':
-        user = User(username)
-        login_user(user)
+        curr_user = user(username)
+        login_user(curr_user)
         return True
     return False
 
-def get_user(user_id):
-    """
-    Your get user should get user details from the database
-    """
-    return User(user_id)
+def get_user(id):
+    valid_user=user.query.filter_by(id=id).first()
+    if valid_user is not None:
+        return valid_user
+    return None
 
 @login_manager.user_loader
 def load_user(user_id):
     # get user information from db
-    user = get_user(user_id)
-    return user
+    return get_user(user_id)
 
 @app.route('/', methods=['POST','GET'])
 def login():

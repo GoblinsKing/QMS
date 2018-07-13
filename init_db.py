@@ -7,9 +7,11 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=True
 db = SQLAlchemy(app)
 from question import load_ques
 from audit import *
+from user import *
 #from all_user import *
 #from LoadUserFromCSV import *
 def create_db():
     db.drop_all()
     db.create_all()
     load_ques()
+    load_users()
