@@ -9,7 +9,35 @@
 <body>
     {% include 'Menu.html'%}
     <div class="main">
-        Hello! {{user.name}}
-    </div>
+        <table class="question">
+            <tr>
+                <td>Hello! {{user.name}}</td>
+            </tr>
+            <tr>
+                <td>使用指南:</td>
+            </tr>
+            <tr>
+                <td>V0.1.1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2018.07.14更新</td>
+            </tr>
+            <tr>
+                <td>1.如需开始评估请点击左侧"开始评估" (目前题库只有测试1)</td>
+            </tr>
+            <tr>
+                <td>2.完成评估后如想开始新的评估请点击左侧"重置评估"</td>
+            </tr>
+            <tr>
+                <td>3.查看历史评估请点击左侧"评估历史"</td>
+            </tr>
+            <tr>
+                <td>4.如果不点击"重置评估"即开始下一次评估,会进入上次评估的完成界面</td>
+            </tr>
+            <tr>
+                <td>5.评估历史中的链接应指向当次评估的详情(尚未完成)</td>
+            </tr>
+            <tr>
+                <td>6.在评估过程中,如刷新页面会导致进入下一题(尚未修复)</td>
+            </tr>
+        </table>
+</div>
 </body>
 </html>
