@@ -13,16 +13,18 @@ n = 1
 part_num = 1
 ques_num = 1
 num = [3,2,1]
+Final = "False"
 def next_ques():
     global part_num
     global ques_num
     if part_num == 3:
-        return
+        return False
     if ques_num == num[part_num-1]:
         ques_num = 1
         part_num += 1
     else:
         ques_num += 1
+    return True
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -73,13 +75,13 @@ def chart():
 
 @app.route('/reset_audit')
 def reset_audit():
-    reset_answer()
-    global n
+    #reset_answer()
     global part_num
     global ques_num
-    n = 1
+    global Final
     part_num = 1
     ques_num = 1
+    Final = "False"
     return redirect(url_for('dashboard'))
 
 @app.route('/new_audit',methods=['POST','GET'])
@@ -97,9 +99,12 @@ def new_audit():
 def audit():
     global n
     global result
-
+    global Final
     #开始后再刷新会导致重新提交表单,导致前进
-    
+    if Final == "True":
+        all_answers = all_answer()
+        question = get_question(part_num, ques_num)
+        return render_template('audit.html',user=current_user, question=question, n = n, part_num = part_num, ques_num = ques_num, all_answer = all_answers, Final = Final)
     answer = None
     if request.method == 'POST':
         n = n + 1
@@ -109,7 +114,12 @@ def audit():
         comment = str(form['comment'])
         suggestion = str(form['comment'])
         save_answer(n, part_num, ques_num, answer, comment, suggestion)
-        next_ques()
-    question = get_question(part_num, ques_num)
+        temp = next_ques()
+        all_answers = all_answer()
+        question = get_question(part_num, ques_num)
+        if temp is False:
+            Final = "True"
+            return render_template('audit.html',user=current_user, question=question, n = n, part_num = part_num, ques_num = ques_num, all_answer = all_answers, Final = Final)
     all_answers = all_answer()
-    return render_template('audit.html',user=current_user, question=question, n = n, part_num = part_num, ques_num = ques_num, all_answer = all_answers)
+    question = get_question(part_num, ques_num)
+    return render_template('audit.html',user=current_user, question=question, n = n, part_num = part_num, ques_num = ques_num, all_answer = all_answers, Final = Final)
