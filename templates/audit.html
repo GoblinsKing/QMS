@@ -9,67 +9,6 @@
 <body>
     {% include 'Menu.html'%}
     <div class="main">
-        {% if Final == "True" %}
-        <table class="question">
-            <tr>
-                <td>评估完成</td>
-            </tr>
-            <tr>
-                <td>总结:</td>
-            </tr>
-            <tr>
-                <td>分类1平均得分:{{result[0]}} &nbsp;&nbsp;&nbsp; 得分率:{{result[0]/5}}</td>
-            </tr>
-            <tr>
-                <td>分类2平均得分:{{result[1]}} &nbsp;&nbsp;&nbsp; 得分率:{{result[1]/5}}</td>
-            </tr>
-            <tr>
-                <td>分类3平均得分:{{result[2]}} &nbsp;&nbsp;&nbsp; 得分率:{{result[2]/5}}</td>
-            </tr>
-            <tr>
-                <td>总得分率:{{(result[0]+result[1]+result[2])/15}}</td>
-            </tr>
-            {% if (result[0]+result[1]+result[2])/15 >= 0.6 %}
-            <tr>
-                <td>本次审核通过!</td>
-            </tr>
-            {% else %}
-            <tr>
-                <td>本次审核不通过!</td>
-            </tr>
-            {% endif %}
-            <!--debug-->
-            {% for answer in all_answer %}
-            <tr>
-                <td>{{answer.part_num}}.{{answer.ques_num}}: {{answer.question}}</td>
-            </tr>
-            <tr>
-                <td>结果: {{answer.answer}}</td>
-            </tr>
-            <tr>
-                <td>评论: {{answer.comment}}</td>
-            </tr>
-            <tr>
-                <td>改进建议: {{answer.suggestion}}</td>
-            </tr>
-            <tr>
-                <td>审核员: {{answer.auditor}}</td>
-            </tr>
-            <tr>
-                <td>项目名称: {{answer.name}}</td>
-            </tr>
-            <tr>
-                <td>---------------------------</td>
-            </tr>
-            {% endfor %}
-            <!--debug-->
-
-
-            <tr>
-                <td><a class="result" href={{url_for('chart')}}>点击查看雷达图</a></td>
-            </tr>
-        </table>
-        {% else %}
         <form method="post">
             <table class="question">
                 <tr>
@@ -134,8 +73,6 @@
                 </tr>
             </table>
         </form>
-
-        {% endif %}
     </div>
 </body>
 </html>

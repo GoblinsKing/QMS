@@ -15,7 +15,7 @@
             </tr>
             {% for audit in audit_history %}
             <tr>
-                <td><a class="result" href={{url_for('chart')}}>项目名称: {{audit.name}}</a></td>
+                <td><a class="result" href={{url_for('AuditResult', title = audit.name)}}>项目名称: {{audit.name}}</a></td>
             </tr>
             <tr>
                 <td>---------------------------</td>
