@@ -54,3 +54,7 @@ def calculate_result(curr_audit):
 def audit_history(auditor):
     temp = audit.query.filter_by(auditor = auditor).group_by(audit.name).all()
     return temp
+
+def check_audit(name):
+    temp = audit.query.filter_by(name = name).group_by(audit.name).all()
+    return temp

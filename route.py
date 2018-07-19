@@ -89,7 +89,7 @@ def new_audit():
         curr_audit=str(form['name'])
         if choice == "1":
             return redirect(url_for('audit'))
-    return render_template('new_audit.html')
+    return render_template('new_audit.html', user=current_user)
 
 @app.route('/audit',methods=['POST','GET'])
 @login_required
@@ -104,7 +104,7 @@ def audit():
         #question = get_question(part_num, ques_num)
         result = calculate_result(curr_audit)
         #return render_template('audit.html',user=current_user, question=question, n = n, part_num = part_num, ques_num = ques_num, Final = Final, result=result)
-        return render_template('audit_result.html', result=result, title = curr_audit)
+        return render_template('audit_result.html', result=result, title = curr_audit, user=current_user)
     answer = None
     if request.method == 'POST':
         n = n + 1
@@ -120,7 +120,7 @@ def audit():
             Final = "True"
             result = calculate_result(curr_audit)
             #return render_template('audit.html',user=current_user, question=question, n = n, part_num = part_num, ques_num = ques_num, Final = Final, result=result)
-            return render_template('audit_result.html', result=result, title = curr_audit)
+            return render_template('audit_result.html', result=result, title = curr_audit, user=current_user)
     question = get_question(part_num, ques_num)
     result = calculate_result(curr_audit)
     return render_template('audit.html',user=current_user, question=question, n = n, part_num = part_num, ques_num = ques_num, Final = Final, result=result)
@@ -128,18 +128,21 @@ def audit():
 @app.route('/AuditHistory',methods=['GET'])
 @login_required
 def AuditHistory():
-    history = audit_history(current_user.username)
-    return render_template('audit_history.html', audit_history=history)
+    if current_user.role == "customer":
+        history = check_audit(current_user.project)
+    else:
+        history = audit_history(current_user.username)
+    return render_template('audit_history.html', audit_history=history, user=current_user)
 
 @app.route('/update',methods=['GET'])
 def update():
-    return render_template('update.html')
+    return render_template('update.html', user=current_user)
 
 @app.route('/AuditResult/<title>',methods=['GET'])
 @login_required
 def AuditResult(title):
     result = calculate_result(title)
-    return render_template('audit_result.html', result=result, title = title)
+    return render_template('audit_result.html', result=result, title = title, user=current_user)
 
 @app.route('/AuditResult/<title>/chart',methods=['GET'])
 @login_required

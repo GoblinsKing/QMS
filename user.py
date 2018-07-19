@@ -1,4 +1,4 @@
-from init_db import db
+﻿from init_db import db
 from flask_login import UserMixin,login_user
 
 class user(UserMixin, db.Model):
@@ -23,6 +23,7 @@ class admin(user):
 class customer(user):
     __tablename__='customer'
     id = db.Column(db.String,db.ForeignKey('user.id'),primary_key=True)
+    project=db.Column('project',db.String)
     __mapper_args__={
         'polymorphic_identity':'customer',
     }
@@ -30,7 +31,7 @@ class customer(user):
 def load_users():
     admin_1 = admin(id="999",name="admin",username="admin",password="admin")
     db.session.add(admin_1)
-    customer_1 = customer(id="998",name="aaa",username="aaa",password="aaa")
+    customer_1 = customer(id="998",name="aaa",username="aaa",password="aaa",project="吉林")
     db.session.add(customer_1)
     db.session.commit()
 
