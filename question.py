@@ -1,4 +1,4 @@
-#import csv
+﻿import csv
 
 def get_answer(answer):
     if answer == "Excellent":
@@ -17,7 +17,8 @@ def get_answer(answer):
 from init_db import db
 class questions(db.Model):
     __tablename__='questions'
-    id = db.Column('id',db.Integer,primary_key=True) ##id e.g. "1.1"
+    id = db.Column('id',db.Integer,primary_key=True) ##id e.g. 0,1,2,3,4,5......
+    series_num = db.Column('series_num',db.Integer)
     part_num = db.Column('part_num',db.Integer)
     ques_num = db.Column('ques_num',db.Integer)
     question = db.Column('question',db.String)
@@ -26,33 +27,18 @@ class questions(db.Model):
     } 
 
 def load_ques():
-    question_1_1 = questions(id= 1,part_num=1,ques_num=1,question="something for 1.1")
-    db.session.add(question_1_1)
-    question_1_2 = questions(id= 2,part_num=1,ques_num=2,question="something for 1.2")
-    db.session.add(question_1_2)
-    question_1_3 = questions(id= 3,part_num=1,ques_num=3,question="something for 1.3")
-    db.session.add(question_1_3)
-    question_2_1 = questions(id= 4,part_num=2,ques_num=1,question="something for 2.1")
-    db.session.add(question_2_1)
-    question_2_2 = questions(id= 5,part_num=2,ques_num=2,question="something for 2.2")
-    db.session.add(question_2_2)
-    question_3_1 = questions(id= 6,part_num=3,ques_num=1,question="something for 3.1")
-    db.session.add(question_3_1)
-    db.session.commit()
-    #with open('user.csv') as f:
-    #    f_csv = csv.reader(f)
-    #    headers = next(f_csv)
-    #    for row in f_csv:
-    #        if row[4] == "trainer":
-    #            Trainer = trainer(name=row[0],zid=row[1],id=row[2],password=row[3])
-    #            db.session.add(Trainer)
-    #        else:
-    #            Trainee = trainee(name=row[0],zid=row[1],id=row[2],password=row[3])
-    #           db.session.add(Trainee)
-    #    db.session.commit()
+    csvFile = open("questionss.csv", "r")
+    reader = csv.reader(csvFile)
+    for row in reader:
+        if reader.line_num == 1: # 忽略第一行
+            continue
+        question = questions(id=row[0],series_num=row[1],part_num=row[2],ques_num=row[3],question=row[4])
+        db.session.add(question)
+        db.session.commit()
+    csvFile.close()
 
-def get_question(part_num, ques_num):
-    temp = questions.query.filter_by(part_num=part_num, ques_num=ques_num).first()
+def get_question(series_num, part_num, ques_num):
+    temp = questions.query.filter_by(series_num=series_num, part_num=part_num, ques_num=ques_num).first()
     if temp is None:
         return None
     else:

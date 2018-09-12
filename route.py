@@ -9,23 +9,37 @@ from audit import *
 #from datetime import datetime,timedelta
 
 n = 1
-
+series_num = 4
 part_num = 1
-ques_num = 1
+ques_num = 0
 num = [3,2,1]
 Final = "False"
 curr_audit = None
 
 def next_ques():
+    global series_num
     global part_num
     global ques_num
-    if part_num == 3:
+    if series_num == 10:
         return False
-    if ques_num == num[part_num-1]:
-        ques_num = 1
-        part_num += 1
-    else:
-        ques_num += 1
+    while 1 != 0:
+        if get_question(series_num,part_num,ques_num + 1) != None:
+            ques_num += 1
+            break
+        elif get_question(series_num,part_num + 1,0) != None:
+            part_num += 1
+            ques_num = 0
+            break
+        elif get_question(series_num,part_num + 1,1) != None:
+            part_num += 1
+            ques_num = 1
+            break
+        else:
+            series_num += 1
+            part_num = 1
+            ques_num = 0
+            if get_question(series_num,part_num,ques_num) != None:
+                break
     return True
 
 @login_manager.user_loader
@@ -60,12 +74,6 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
-#@app.route('/chart',methods=['POST','GET'])
-#@login_required
-#def chart():
-#    result = calculate_result(curr_audit)
-#    return render_template('chart.html',Q1 = result[0], Q2 = result[1], Q3 = result[2])
-
 @app.route('/reset_audit')
 def reset_audit():
     #reset_answer()
@@ -73,6 +81,8 @@ def reset_audit():
     global ques_num
     global Final
     global curr_audit
+    global series_num
+    series_num = 4
     part_num = 1
     ques_num = 1
     Final = "False"
@@ -95,15 +105,15 @@ def new_audit():
 @login_required
 def audit():
     global n
-    global result
     global Final
     global curr_audit
+    global part_num
+    global ques_num
+    global series_num
     #开始后再刷新会导致重新提交表单,导致前进
     #不重置评估直接开始会导致因为final值为TURE而尝试进result界面然后报错
     if Final == "True":
-        #question = get_question(part_num, ques_num)
         result = calculate_result(curr_audit)
-        #return render_template('audit.html',user=current_user, question=question, n = n, part_num = part_num, ques_num = ques_num, Final = Final, result=result)
         return render_template('audit_result.html', result=result, title = curr_audit, user=current_user)
     answer = None
     if request.method == 'POST':
@@ -113,17 +123,15 @@ def audit():
         answer = get_answer(answer)
         comment = str(form['comment'])
         suggestion = str(form['comment'])
-        save_answer(n, part_num, ques_num, answer, comment, suggestion, current_user.username, curr_audit)
+        save_answer(n, series_num, part_num, ques_num, answer, comment, suggestion, current_user.username, curr_audit)
         temp = next_ques()
-        question = get_question(part_num, ques_num)
+        question = get_question(series_num, part_num, ques_num)
         if temp is False:
             Final = "True"
             result = calculate_result(curr_audit)
-            #return render_template('audit.html',user=current_user, question=question, n = n, part_num = part_num, ques_num = ques_num, Final = Final, result=result)
             return render_template('audit_result.html', result=result, title = curr_audit, user=current_user)
-    question = get_question(part_num, ques_num)
-    result = calculate_result(curr_audit)
-    return render_template('audit.html',user=current_user, question=question, n = n, part_num = part_num, ques_num = ques_num, Final = Final, result=result)
+    question = get_question(series_num, part_num, ques_num)
+    return render_template('audit.html',user=current_user, question=question, n = n, series_num = series_num, part_num = part_num, ques_num = ques_num)
 
 @app.route('/AuditHistory',methods=['GET'])
 @login_required

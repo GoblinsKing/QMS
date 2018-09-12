@@ -3,6 +3,7 @@ import time
 class audit(db.Model):
     __tablename__='audit'
     id = db.Column('id',db.Integer,primary_key=True)
+    series_num = db.Column('series_num',db.Integer)
     part_num = db.Column('part_num',db.Integer)
     ques_num = db.Column('ques_num',db.Integer)
     answer = db.Column('answer',db.Integer)
@@ -15,14 +16,14 @@ class audit(db.Model):
         'polymorphic_identity':'audit',
     } 
     
-def save_answer(n, part_num, ques_num, answer, comment, suggestion, auditor, name):
+def save_answer(n, series_num, part_num, ques_num, answer, comment, suggestion, auditor, name):
     #curr_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-    new = audit(id = n, part_num = part_num, ques_num = ques_num, answer = answer, comment = comment, suggestion = suggestion, auditor = auditor, name = name)
+    new = audit(id = n, series_num = series_num, part_num = part_num, ques_num = ques_num, answer = answer, comment = comment, suggestion = suggestion, auditor = auditor, name = name)
     db.session.add(new)
     db.session.commit()
 
-def show_answer(part_num, ques_num, curr_audit):
-    temp = audit.query.filter_by(part_num = part_num, ques_num = ques_num, name = curr_audit).first()
+def show_answer(series_num, part_num, ques_num, curr_audit):
+    temp = audit.query.filter_by(series_num = series_num, part_num = part_num, ques_num = ques_num, name = curr_audit).first()
     if temp is None:
         return None
     else:
@@ -33,10 +34,12 @@ def all_answer(curr_audit):
     return temp
 
 def calculate_result(curr_audit):
+    series_num = 4
     part_num = 1
     ques_num = 1
     result = [0,0,0]
     num = [3,2,1]
+    return result
     while part_num <= len(num):
         ques_num = 1;
         while ques_num <= num[part_num-1]:
