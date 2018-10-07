@@ -1,16 +1,16 @@
 id,series_num,part_num,ques_num,question
-0,4,1,0,理解组织及其环境
-1,4,2,0,理解相关方的需求和期望
-2,4,3,0,确定质量管理体系的范围
-3,4,4,0,质量管理体系及其过程
-4,5,1,1,领导作用-总则
-5,5,1,2,以顾客为关注焦点
-6,5,2,1,制定质量方针
-7,6,1,0,应对风险和机遇的措施
-8,6,2,0,质量目标及其实现的策划
-9,6,3,0,变更的策划
-10,7,1,1,支持-总则
-11,7,1,2,人员
-12,8,1,0,运行策划和控制
-13,9,1,0,监视、测量、分析和评价
-14,10,1,0,持续改进-总则
+0,4,1,0,Understand the organization and its environment
+1,4,2,0,Understand the needs and expectations of interested parties
+2,4,3,0,Determine the scope of the quality management system
+3,4,4,0,Quality management system and its process
+4,5,1,1,Leadership - General
+5,5,1,2,customer-focused
+6,5,2,1,Develop a quality policy
+7,6,1,0,Measures to address risks and opportunities
+8,6,2,0,Quality objectives and planning for their realization
+9,6,3,0,Planning of change
+10,7,1,1,Support - general
+11,7,1,2,personnel
+12,8,1,0,Operation planning and control
+13,9,1,0,"Monitoring, measuring, analyzing and evaluating"
+14,10,1,0,Continuous improvement - general

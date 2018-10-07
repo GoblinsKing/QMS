@@ -1,49 +1,49 @@
 ﻿<section id="sideMenu">
     <div id="title">
-        质量管理内审评估
+        QMS-audit
     </div>
     {% if user.role == 'admin' %}
     <nav>
         {% if request.path  == '/dashboard' %}
-        <a href="{{url_for('dashboard')}}"class="active"><i class="fas fa-home"></i>主页</a>
+        <a href="{{url_for('dashboard')}}"class="active"><i class="fas fa-home"></i>Homepage</a>
         {% else %}
-        <a href="{{url_for('dashboard')}}"><i class="fas fa-home"></i>主页</a>
+        <a href="{{url_for('dashboard')}}"><i class="fas fa-home"></i>Homepage</a>
         {% endif %}
 
         {% if request.path  == '/new_audit' or request.path  == '/audit'%}
-        <a href="{{url_for('new_audit')}}"class="active"><i class="far fa-file-alt"></i>开始评估</a>
+        <a href="{{url_for('new_audit')}}"class="active"><i class="far fa-file-alt"></i>Start audit</a>
         {% else %}
-        <a href="{{url_for('new_audit')}}"><i class="far fa-file-alt"></i>开始评估</a>
+        <a href="{{url_for('new_audit')}}"><i class="far fa-file-alt"></i>Start audit</a>
         {% endif %}
 
-        <a href="{{url_for('reset_audit')}}"><i class="fas fa-sliders-h"></i>重置评估</a>
+        <a href="{{url_for('reset_audit')}}"><i class="fas fa-sliders-h"></i>Reset audit</a>
 
         {% if request.path  == '/AuditHistory' %}
-        <a href="{{url_for('AuditHistory')}}"class="active"><i class="fas fa-history"></i>评估历史</a>
+        <a href="{{url_for('AuditHistory')}}"class="active"><i class="fas fa-history"></i>Audit History</a>
         {% else %}
-        <a href="{{url_for('AuditHistory')}}"><i class="fas fa-history"></i>评估历史</a>
+        <a href="{{url_for('AuditHistory')}}"><i class="fas fa-history"></i>Audit History</a>
         {% endif %}
 
         {% if request.path  == '/update' %}
-        <a href="{{url_for('update')}}" class="active"><i class="fas fa-wrench"></i>更新记录</a>
+        <a href="{{url_for('update')}}" class="active"><i class="fas fa-wrench"></i>Update record</a>
         {% else %}
-        <a href="{{url_for('update')}}"><i class="fas fa-wrench"></i>更新记录</a>
+        <a href="{{url_for('update')}}"><i class="fas fa-wrench"></i>Update record</a>
         {% endif %}
     </nav>
     {% elif user.role == 'customer' %}
     <nav>
         {% if request.path  == '/dashboard' %}
-        <a href="{{url_for('dashboard')}}" class="active"><i class="fas fa-home"></i>主页</a>
+        <a href="{{url_for('dashboard')}}" class="active"><i class="fas fa-home"></i>Homepage</a>
         {% else %}
-        <a href="{{url_for('dashboard')}}"><i class="fas fa-home"></i>主页</a>
+        <a href="{{url_for('dashboard')}}"><i class="fas fa-home"></i>Homepage</a>
         {% endif %}
 
         {% if request.path  == '/AuditHistory' %}
-        <a href="{{url_for('AuditHistory')}}" class="active"><i class="fas fa-history"></i>评估结果</a>
+        <a href="{{url_for('AuditHistory')}}" class="active"><i class="fas fa-history"></i>Audit result</a>
         {% else %}
-        <a href="{{url_for('AuditHistory')}}"><i class="fas fa-history"></i>评估结果</a>
+        <a href="{{url_for('AuditHistory')}}"><i class="fas fa-history"></i>Audit result</a>
         {% endif %}
     </nav>
     {% endif %}
-    <a href="/logout">&nbsp;登出&nbsp;</a>
+    <a href="/logout">&nbsp;Logout&nbsp;</a>
 </section>
