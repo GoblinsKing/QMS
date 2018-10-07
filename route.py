@@ -56,7 +56,7 @@ def login():
         if check_password(username, password):
             return redirect(url_for('dashboard'))
         else:
-            flash("用户名或密码错误",'alart')
+            flash("wrong user name or password",'alart')
             return redirect(url_for('login'))
 
     if current_user.is_authenticated:

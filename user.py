@@ -31,7 +31,7 @@ class customer(user):
 def load_users():
     admin_1 = admin(id="999",name="admin",username="admin",password="admin")
     db.session.add(admin_1)
-    customer_1 = customer(id="998",name="aaa",username="aaa",password="aaa",project="吉林")
+    customer_1 = customer(id="998",name="aaa",username="aaa",password="aaa",project="Sample")
     db.session.add(customer_1)
     db.session.commit()
 
