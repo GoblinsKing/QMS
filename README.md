@@ -3,3 +3,6 @@ QMS-audit(Quality Management System audit) is a web application that is an inter
 
 Test Account
 ----------
+Username        Password
+admin           admin
+aaa             aaa(Linked with project name "Sample")
