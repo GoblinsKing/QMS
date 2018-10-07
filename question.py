@@ -27,7 +27,7 @@ class questions(db.Model):
     } 
 
 def load_ques():
-    csvFile = open("questionss.csv", "r")
+    csvFile = open("questions.csv", "r")
     reader = csv.reader(csvFile)
     for row in reader:
         if reader.line_num == 1: # 忽略第一行
